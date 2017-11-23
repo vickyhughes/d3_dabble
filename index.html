@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Page Template</title>
+        <script type="text/javascript" src="d3/d3.js"></script>
+
+    </head>
+    <style>
+        div.bar {
+        display: inline-block;
+        width: 20px;
+        height: 75px;   /* We'll override height later */
+        background-color: teal;
+        margin-right: 2px; /* Space in between bars */
+        }
+    </style>
+    <body>
+        <script type="text/javascript">
+
+            let lights;
+            
+            d3.csv("lights.csv", function(data) {
+                lights = data;
+
+            d3.select("body").selectAll("p")
+                .data(lights)
+                .enter()
+                .append("div")
+                .attr("class", "bar")
+                .style("height", function(d) {
+                    return d.Lights * 5 + "px";
+                });
+            
+            });
+
+        </script>
+    </body>
+</html>
