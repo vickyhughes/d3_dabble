@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Autumn weather</title>
+        <script type="text/javascript" src="d3/d3.js"></script>
+
+    </head>
+    <body>
+        <script type="text/javascript">
+
+        // Set up space //
+		var w = 700
+		var h = 700
+
+		var padding = 50
+
+		// Create SVG element //
+		var svg = d3.select("body")
+		            .append("svg")
+		            .attr("width", w)
+		            .attr("height", h);
+
+		// Create data //
+		var temperatures = [
+			[ 2017, 9.9 ],
+			[ 2016, 9.8 ],
+			[ 2015, 10.0 ],
+			[ 2014, 10.9 ],
+			[ 2013, 9.8 ],
+			[ 2012, 8.6 ],
+			[ 2011, 11.3 ],
+			[ 2010, 8.9 ],
+			[ 2009, 10.3 ],
+			[ 2008, 9.1 ],
+		];
+
+		// Set up scales //
+		var xScale = d3.scaleLinear()
+            .domain([d3.min(temperatures, function(d) { return d[0]; }), d3.max(temperatures, function(d) { return d[0]; })])
+            .range([padding, w - padding]);
+
+        var yScale = d3.scaleLinear()
+            .domain([0, d3.max(temperatures, function(d) { return d[1]; })])
+            .range([h - padding, padding]); // flipped!
+
+
+		// Append data //
+		svg.selectAll("circle")
+		   .data(temperatures)
+		   .enter()
+		   .append("circle")
+		   .attr("cx", function(d) { return xScale(d[0]); } )
+		   .attr("cy", function(d) { return yScale(d[1]); } )
+		   .attr("r", 5);
+
+		</script>
+    </body>
+</html>
